@@ -8,26 +8,24 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int weaponLevel = 0;
     [SerializeField] private float weaponDamage = 20;
     [SerializeField] private float radius = 1f;
+    [SerializeField] private int maxWeaponLevel = 4;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(ShootProjectileRoutine());
+        
     }
     private void OnEnable()
     {
         Observer.upgradeFireRate += UpgradeFireRate;
         Observer.upgradeWeaponLevel += UpgradeWeaponLevel;
+        Observer.handleShooting += Shooting;
     }
 
     private void OnDisable()
     {
         Observer.upgradeFireRate -= UpgradeFireRate;
         Observer.upgradeWeaponLevel -= UpgradeWeaponLevel;
-    }
-        // Update is called once per frame
-        void Update()
-    {
-        
+        Observer.handleShooting -= Shooting;
     }
 
     private void ShootProjectile()
@@ -58,14 +56,25 @@ public class Weapon : MonoBehaviour
 
     public void UpgradeWeaponLevel()
     {
-        weaponLevel++;
+        weaponLevel = weaponLevel != maxWeaponLevel ? weaponLevel + 1 : weaponLevel;
+    }
+    private void Shooting()
+    {
+        if(GameManager.Instance.currentGameState == GameState.Gameplay)
+        {
+           StartCoroutine(ShootProjectileRoutine());
+        } 
+        else
+        {
+            StopCoroutine(ShootProjectileRoutine());
+        }
     }
 
     private IEnumerator ShootProjectileRoutine()
     {
-        Debug.Log("test");
         while (true)
         {
+            if (GameManager.Instance.currentGameState != GameState.Gameplay) break;
             yield return new WaitForSeconds(1/fireRate);
             ShootProjectile();
         }

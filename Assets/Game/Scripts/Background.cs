@@ -5,7 +5,7 @@ using UnityEngine;
 public class Background : MonoBehaviour
 {
     [SerializeField] private Material backgroundMaterial;
-    [SerializeField] private float loopSpeed = 0.1f;
+    private float speed;
     private Vector2 offset;
     private void OnEnable()
     {
@@ -24,8 +24,10 @@ public class Background : MonoBehaviour
 
     private void BackgroundLoop()
     {
+        speed = GameManager.Instance.backgroundLoopSpeed;
+        Debug.Log(GameManager.Instance.currentGameState);
         offset = backgroundMaterial.mainTextureOffset;
-        offset.y += Time.deltaTime * loopSpeed;
+        offset.y += Time.deltaTime * speed;
         backgroundMaterial.SetTextureOffset("_MainTex", offset);
         
     }

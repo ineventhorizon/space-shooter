@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - WeaponLevel
   - FireRate
+  - Bottom
   layers:
   - Default
   - TransparentFX

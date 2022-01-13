@@ -12,13 +12,13 @@ public class Projectile : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(LifeTimeRoutine());
+        //StartCoroutine(LifeTimeRoutine());
     }
 
     private void OnDisable()
     {
-        StopCoroutine(LifeTimeRoutine());
-        this.isShooting = false;
+        //StopCoroutine(LifeTimeRoutine());
+        //this.isShooting = false;
     }
     // Update is called once per frame
     void Update()
@@ -26,6 +26,16 @@ public class Projectile : MonoBehaviour
         if (isShooting)
         {
             transform.position += Time.deltaTime * projectileSpeed*Vector3.up;
+            HandleLifeTime();
+        }
+    }
+
+    private void HandleLifeTime()
+    {
+        if (transform.position.y >= 5.1f) 
+        {
+            gameObject.SetActive(false);
+            this.isShooting = false;
         }
     }
 

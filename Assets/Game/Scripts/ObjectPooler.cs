@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
+    #region Projectile
     //This is for projectiles
+    [SerializeField] private Transform parentProjectile;
     [SerializeField] private Projectile projectileObject;
     [SerializeField] public List<Projectile> pooledProjectiles;
     [SerializeField] public int projectilePoolAmount;
-
+    #endregion
     //This is for collectables
+    #region PowerUps
+    [SerializeField] private Transform parentPowerUp;
     [SerializeField] private Collectable powerUpWeaponLevel;
     [SerializeField] private Collectable powerUpFireRate;
     [SerializeField] public List<Collectable> pooledCollectables;
     [SerializeField] public int fireRatePoolAmount;
     [SerializeField] public int weaponDamagePoolAmount;
+    #endregion
+
     private static ObjectPooler instance;
     public static ObjectPooler Instance => instance ?? (instance = FindObjectOfType<ObjectPooler>());
     private void Awake()
@@ -39,12 +45,11 @@ public class ObjectPooler : MonoBehaviour
     {
         for(int i = 0; i < projectilePoolAmount; i++)
         {
-            var obj = Instantiate(projectileObject, this.transform);
+            var obj = Instantiate(projectileObject, parentProjectile);
             pooledProjectiles.Add(obj);
             obj.gameObject.SetActive(false);
         }
     }
-
     public Projectile GetPooledProjectile()
     {
 
@@ -56,28 +61,26 @@ public class ObjectPooler : MonoBehaviour
             }
         }
 
-        var obj = Instantiate(projectileObject, this.transform);
+        var obj = Instantiate(projectileObject, parentProjectile);
         pooledProjectiles.Add(obj);
 
         return obj;
     }
-
     private void CreateCollectables()
     {
         for(int i = 0; i < fireRatePoolAmount; i++)
         {
-            var obj = Instantiate(powerUpFireRate, this.transform);
+            var obj = Instantiate(powerUpFireRate, parentPowerUp);
             pooledCollectables.Add(obj);
             obj.gameObject.SetActive(false);
         }
         for (int i = 0; i < weaponDamagePoolAmount; i++)
         {
-            var obj = Instantiate(powerUpWeaponLevel, this.transform);
+            var obj = Instantiate(powerUpWeaponLevel, parentPowerUp);
             pooledCollectables.Add(obj);
             obj.gameObject.SetActive(false);
         }
     }
-
     public Collectable GetPooledCollectable()
     {
         for (int i = 0; i < pooledCollectables.Count; i++)
@@ -88,11 +91,13 @@ public class ObjectPooler : MonoBehaviour
             }
         }
 
-        var obj = Instantiate(powerUpWeaponLevel, this.transform);
+        var obj = Instantiate(powerUpWeaponLevel, parentPowerUp);
         pooledCollectables.Add(obj);
 
         return obj;
     }
+
+
 
 
 }
