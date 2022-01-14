@@ -6,8 +6,10 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyBase enemyObjectSmall;
     [SerializeField] private EnemyBase enemyObjectMedium;
+    [SerializeField] public Transform enemiesParent;
     [SerializeField] private List<Transform> enemyLocations;
     [SerializeField] public List<GameObject> enemies;
+    
     public int enemyToSpawnCount = 0;
     private static EnemySpawner instance;
     public static EnemySpawner Instance => instance ?? (instance = FindObjectOfType<EnemySpawner>());
@@ -24,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        SpawnEnemy();
+        
     }
 
     public void SpawnEnemy()
@@ -36,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
             var spawnLocation = (Vector2)(transform.position+enemyLocations[i].position);
             spawnLocation.x = Random.Range(-3, 3);
             var enemyToSpawn = GameManager.Instance.currentWave > 5 ? enemyObjectMedium : enemyObjectSmall;
-            EnemyBase spawnedEnemy = Instantiate(enemyToSpawn, spawnLocation, Quaternion.identity);
+            EnemyBase spawnedEnemy = Instantiate(enemyToSpawn, spawnLocation, Quaternion.identity, enemiesParent);
             enemies.Add(spawnedEnemy.gameObject);
             StartCoroutine(MoveToPositionRoutine(spawnedEnemy, (Vector2)enemyLocations[i].position));
         }

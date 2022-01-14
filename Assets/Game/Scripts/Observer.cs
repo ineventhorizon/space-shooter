@@ -8,4 +8,5 @@ public class Observer
     public static UnityAction upgradeFireRate;
     public static UnityAction upgradeWeaponLevel;
     public static UnityAction handleShooting;
+    public static UnityAction startMovement;
 }

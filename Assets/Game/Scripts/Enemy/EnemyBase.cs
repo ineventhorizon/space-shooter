@@ -41,10 +41,6 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            //GAMEOVER
-        }
         if (collision.CompareTag("Bottom"))
         {
             Die();

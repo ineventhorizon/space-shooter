@@ -25,7 +25,7 @@ public class Background : MonoBehaviour
     private void BackgroundLoop()
     {
         speed = GameManager.Instance.backgroundLoopSpeed;
-        Debug.Log(GameManager.Instance.currentGameState);
+        //Debug.Log(GameManager.Instance.currentGameState);
         offset = backgroundMaterial.mainTextureOffset;
         offset.y += Time.deltaTime * speed;
         backgroundMaterial.SetTextureOffset("_MainTex", offset);

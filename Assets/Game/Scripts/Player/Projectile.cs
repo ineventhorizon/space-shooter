@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] public float projectileSpeed;
     [SerializeField] public float projectileDamage;
     public bool isShooting = false;
-    public bool hasCollide = true;
+    public bool hasCollide = false;
 
 
     private void OnEnable()

@@ -24,10 +24,29 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        currentGameState = GameState.Menu;
+    }
+
+    public void GameOver()
+    {
+        currentGameState = GameState.Menu;
+        UIManager.Instance.DisableInGameScreen();
+        UIManager.Instance.ActivateGameOverScreen();
         Observer.handleShooting?.Invoke();
+    }
+
+    public void StartGame()
+    {
+        currentGameState = GameState.Gameplay;
+        UIManager.Instance.DisableStartScreen();
+        UIManager.Instance.ActivateInGameScreen();
+        Observer.handleShooting?.Invoke();
+        EnemySpawner.Instance.SpawnEnemy();
+
     }
     public void NextWave()
     {
+        InGameScreen.Instance.UpdateWave(currentWave);
         if(EnemySpawner.Instance.enemies.Count == 0)
         {
             Debug.Log("Next Wave");
@@ -59,7 +78,6 @@ public class GameManager : MonoBehaviour
             backgroundLoopSpeed = totalTime < duration / 2 ? backgroundLoopSpeed + 0.05f : backgroundLoopSpeed - 0.05f;
             totalTime += Time.deltaTime/duration;
             yield return null;
-            
         }
         backgroundLoopSpeed = 0.1f;
         currentGameState = GameState.Gameplay;

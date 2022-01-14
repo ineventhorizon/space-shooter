@@ -822,7 +822,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590479666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 34627787}
@@ -1317,6 +1317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyObjectSmall: {fileID: 7939481303727606585, guid: 2fb4d044c19327f4bb04bd00c1c4c58e, type: 3}
   enemyObjectMedium: {fileID: 4414974011629021713, guid: a8b44d8b0fc7fb741be475a6f8329338, type: 3}
+  enemiesParent: {fileID: 1025554223}
   enemyLocations:
   - {fileID: 282688769}
   - {fileID: 1961365278}

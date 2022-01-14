@@ -17,6 +17,7 @@ public class MediumEnemy : EnemyBase
     public override void Die()
     {
         status = false;
+        InGameScreen.Instance.UpdateScore(50);
         DropCollectable();
         enemyAnimator.SetBool("IsDead", true);
         Destroy(gameObject, 1);
@@ -25,7 +26,7 @@ public class MediumEnemy : EnemyBase
     // Update is called once per frame
     void Update()
     {
-        if (startMovement) HandleMovement();
+        if (startMovement && GameManager.Instance.currentGameState == GameState.Gameplay) HandleMovement();
     }
 
     private void HandleMovement()

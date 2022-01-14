@@ -15,8 +15,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
-        HandleMovement();
+        if(GameManager.Instance.currentGameState == GameState.Gameplay ||
+            GameManager.Instance.currentGameState == GameState.BetweenScenes)
+        {
+            HandleInput();
+            HandleMovement();
+        }
     }
 
     private void HandleMovement()
@@ -71,6 +75,15 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Released");
             mouseInput = Vector2.zero;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            shipAnimator.SetBool("Dead", true);
+            GameManager.Instance.GameOver();
         }
     }
 }

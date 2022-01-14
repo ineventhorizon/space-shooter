@@ -35,6 +35,7 @@ public class Collectable : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            InGameScreen.Instance.UpdateScore(20);
             Observer.upgradeWeaponLevel?.Invoke();
             this.gameObject.SetActive(false);
 
